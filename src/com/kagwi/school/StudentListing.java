@@ -58,6 +58,7 @@ public class StudentListing extends JFrame {
 				studentList.get(i).getPhone(), studentList.get(i).getEmail()});
 				i++; //Increment value
 	        }
+	        new JSONData().putStudents(studentList);
 	        return studentList;
 	 }
 

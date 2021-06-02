@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class DBOperations {
 	
-	private Connection connection;
-	private PreparedStatement pst;
+	private static Connection connection;
+	private static PreparedStatement pst;
 	private Statement st;
-	private ResultSet rs;
+	private static ResultSet rs;
 	
 	public DBOperations() {
 		try {
@@ -45,7 +45,7 @@ public class DBOperations {
 		}
 	}
 	
-	public ArrayList<StudentModel> getAllStudents() {
+	public static ArrayList<StudentModel> getAllStudents() {
 		ArrayList<StudentModel> students = new ArrayList<>();
 		try {
 			pst = connection.prepareStatement(DBSchema.getQueryAllStudents());

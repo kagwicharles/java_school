@@ -83,6 +83,15 @@ public class StudentForm extends JFrame {
 		});
 		btnNewButton_1.setBounds(411, 243, 114, 25);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnViewAll = new JButton("View all");
+		btnViewAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewAllStudents();
+			}
+		});
+		btnViewAll.setBounds(23, 243, 117, 25);
+		contentPane.add(btnViewAll);
 		setTitle("Student registration");
 	}
 	

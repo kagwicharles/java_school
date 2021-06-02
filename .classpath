@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/home/kagwi/Downloads/postgresql-42.2.20.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-42.2.20.jar"/>
+	<classpathentry kind="lib" path="lib/json-simple-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
