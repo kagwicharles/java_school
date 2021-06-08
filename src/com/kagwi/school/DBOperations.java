@@ -32,13 +32,14 @@ public class DBOperations {
 		}
 	}
 	
-	public void insertStudent(String fullname, String nationality, String phone, String email) {
+	public void insertStudent(String fullname, String nationality, String phone, String email, String grades) {
 		try {
 			pst = connection.prepareStatement(DBSchema.insertStudent());
 			pst.setString(1, fullname);
             pst.setString(2, nationality);
             pst.setString(3, phone);
             pst.setString(4, email);
+            pst.setString(5, grades);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -57,7 +58,8 @@ public class DBOperations {
 				String nationality = rs.getString(3);
 				String phone = rs.getString(4);
 				String email = rs.getString(5);
-				students.add(new StudentModel(id, fullname, nationality, phone, email));
+				String grades = rs.getString(6);
+				students.add(new StudentModel(id, fullname, nationality, phone, email, grades));
 			}
 			DBConnect.closeConnection();
 		} catch (SQLException e) {

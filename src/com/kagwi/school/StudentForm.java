@@ -4,10 +4,14 @@ package com.kagwi.school;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.json.simple.JSONObject;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 
 public class StudentForm extends JFrame {
@@ -17,13 +21,16 @@ public class StudentForm extends JFrame {
 	private JTextField nationality;
 	private JTextField phone;
 	private JTextField email;
+	private JTextField mathsGrade;
+	private JTextField kiswGrade;
+	private JTextField engGrade;
 
 	/**
 	 * Create the frame.
 	 */
 	public StudentForm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 539, 337);
+		setBounds(100, 100, 585, 424);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,7 +78,7 @@ public class StudentForm extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(271, 243, 114, 25);
+		btnNewButton.setBounds(304, 338, 114, 25);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Save");
@@ -81,7 +88,7 @@ public class StudentForm extends JFrame {
 				viewAllStudents();
 			}
 		});
-		btnNewButton_1.setBounds(411, 243, 114, 25);
+		btnNewButton_1.setBounds(459, 338, 114, 25);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnViewAll = new JButton("View all");
@@ -90,9 +97,47 @@ public class StudentForm extends JFrame {
 				viewAllStudents();
 			}
 		});
-		btnViewAll.setBounds(23, 243, 117, 25);
+		btnViewAll.setBounds(29, 338, 117, 25);
 		contentPane.add(btnViewAll);
+		
+		JLabel lblGrades = new JLabel("Grades");
+		lblGrades.setBounds(53, 211, 93, 15);
+		contentPane.add(lblGrades);
+		lblGrades.setFont(new Font("Serif", Font.BOLD, 18));
+		
+		JLabel lblMathematics = new JLabel("Mathematics");
+		lblMathematics.setBounds(101, 238, 114, 19);
+		contentPane.add(lblMathematics);
+		
+		JLabel lblKiswahili = new JLabel("Kiswahili");
+		lblKiswahili.setBounds(101, 269, 96, 15);
+		contentPane.add(lblKiswahili);
+		
+		JLabel lblEnglish = new JLabel("English");
+		lblEnglish.setBounds(101, 296, 70, 15);
+		contentPane.add(lblEnglish);
+		
+		mathsGrade = new JTextField();
+		mathsGrade.setBounds(224, 238, 124, 19);
+		contentPane.add(mathsGrade);
+		mathsGrade.setColumns(10);
+		
+		kiswGrade = new JTextField();
+		kiswGrade.setBounds(224, 267, 124, 19);
+		contentPane.add(kiswGrade);
+		kiswGrade.setColumns(10);
+		
+		engGrade = new JTextField();
+		engGrade.setBounds(224, 294, 124, 19);
+		contentPane.add(engGrade);
+		engGrade.setColumns(10);
+		
+		JLabel lblBioData = new JLabel("Bio Data");
+		lblBioData.setBounds(57, 26, 110, 15);
+		contentPane.add(lblBioData);
+		lblBioData.setFont(new Font("Serif", Font.BOLD, 18));
 		setTitle("Student registration");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	public void registerStudent() {
@@ -100,7 +145,15 @@ public class StudentForm extends JFrame {
 		String nation = nationality.getText().toString();
 		String phoneNo = phone.getText().toString();
 		String e_mail = email.getText().toString();
-		new DBOperations().insertStudent(name, nation, phoneNo, e_mail);
+		new DBOperations().insertStudent(name, nation, phoneNo, e_mail, createJson());
+	}
+	
+	public String createJson() {
+		JSONObject gradesObj = new JSONObject();
+		gradesObj.put("Mathematics", mathsGrade.getText().toString());
+		gradesObj.put("Kiswahili", kiswGrade.getText().toString());
+		gradesObj.put("English", engGrade.getText().toString());
+		return gradesObj.toString();
 	}
 	
 	public void viewAllStudents() {

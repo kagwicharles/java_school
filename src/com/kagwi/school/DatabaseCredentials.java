@@ -103,6 +103,7 @@ public class DatabaseCredentials extends JFrame {
 		databasePass.setBounds(161, 239, 124, 19);
 		getContentPane().add(databasePass);
 		setTitle("Database Credentials");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	public void openStudentForm() {

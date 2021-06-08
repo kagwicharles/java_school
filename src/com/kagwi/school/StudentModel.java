@@ -7,13 +7,15 @@ public class StudentModel {
 	private String nationality;
 	private String phone;
 	private String email;
+	private String grades;
 	
-	public StudentModel(int id, String fullName, String nationality, String phone, String email) {
+	public StudentModel(int id, String fullName, String nationality, String phone, String email, String grades) {
 		this.id = id;
 		this.fullName = fullName;
 		this.nationality = nationality;
 		this.phone = phone;
 		this.email = email;
+		this.grades = grades;
 	}
 	
 	public int getId() {
@@ -34,6 +36,10 @@ public class StudentModel {
 	
 	public String getEmail() {
 		return email;
+	}
+	
+	public String getGrades() {
+		return grades;
 	}
 	
 

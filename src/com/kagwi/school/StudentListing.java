@@ -16,7 +16,7 @@ public class StudentListing extends JFrame {
 	private JPanel contentPane;
 	private JTable studentTable;
 	private DefaultTableModel model;
-    private String[] columnNames = {"ID", "FULL NAME", "NATIONALITY", "PHONE", "EMAIL"};
+    private String[] columnNames = {"ID", "FULL NAME", "NATIONALITY", "PHONE", "EMAIL", "GRADES"};
 
 
 	/**
@@ -45,6 +45,7 @@ public class StudentListing extends JFrame {
 		studentTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		studentTable.setFillsViewportHeight(true);
 		setTitle("Database results");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	 public ArrayList<StudentModel> showStudents() {
@@ -55,10 +56,9 @@ public class StudentListing extends JFrame {
 	        while (i != studentList.size()) {
 				model.addRow(new Object[]{studentList.get(i).getId(), 
 					studentList.get(i).getFullName(), studentList.get(i).getNationality(),
-				studentList.get(i).getPhone(), studentList.get(i).getEmail()});
+				studentList.get(i).getPhone(), studentList.get(i).getEmail(), studentList.get(i).getGrades()});
 				i++; //Increment value
 	        }
-	        new JSONData().putStudents(studentList);
 	        return studentList;
 	 }
 
