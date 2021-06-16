@@ -45,20 +45,18 @@ public class SocketConnect {
 		out.println("\r\n");
 
 		out.println("<html>");
-		out.println("<head> <style> table, th, td {\n" + 
-				"  border: 1px solid #012237;\n" + 
-				"} </style></head>");
+		out.println("<head> <style> table, th, td {\n" + "  border: 1px solid #012237;\n" + "} </style></head>");
 		out.println("<body>");
 		out.println("<h1>Welcome, Kagwi<h2>");
 		out.println("<h3>All students</h3>");
 		out.println("<table>");
 		out.println(
 				"<tr> <th> Id </th> <th> Full Name </th> <th> Nationality </th> <th> Phone </th> <th> Grades </th> <th> Average </th></tr>");
-		
+
 		// This loop traverses the students list and outputs them in browser
 		int i = 0;
 		while (i < students.size()) {
-			
+
 			System.out.println("All students " + students.get(i).getFullName());
 			int currentStudent = i + 1;
 			out.println("<tr>");
@@ -79,18 +77,17 @@ public class SocketConnect {
 		out.close(); // Close output stream
 		client.close(); // Close client socket
 	}
-	
-	
+
 	// Method to return average grade computed as string
 	public String calcuateAvgMarks(String marks) throws ParseException {
 
 		Object obj = new JSONParser().parse(marks);
-        JSONObject jo = (JSONObject) obj;
-        int maths = Integer.parseInt(jo.get("Mathematics").toString());
-        int kiswahili = Integer.parseInt(jo.get("Kiswahili").toString());
-        int english = Integer.parseInt(jo.get("English").toString());
-        float avgMarks = (maths+kiswahili+english)/3;
-        return String.valueOf(avgMarks);
+		JSONObject jo = (JSONObject) obj;
+		int maths = Integer.parseInt(jo.get("Mathematics").toString());
+		int kiswahili = Integer.parseInt(jo.get("Kiswahili").toString());
+		int english = Integer.parseInt(jo.get("English").toString());
+		float avgMarks = (maths + kiswahili + english) / 3;
+		return String.valueOf(avgMarks);
 	}
 
 	// This method opens url on the default browser
