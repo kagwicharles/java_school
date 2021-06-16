@@ -41,6 +41,5 @@ public class StudentModel {
 	public String getGrades() {
 		return grades;
 	}
-	
 
 }

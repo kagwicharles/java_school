@@ -9,19 +9,16 @@ import java.util.ArrayList;
 
 public class DBOperations {
 	
-	private static Connection connection;
+	private Connection connection;
 	private static PreparedStatement pst;
 	private Statement st;
 	private static ResultSet rs;
 	
-	public DBOperations() {
-		try {
-			connection = DBConnect.getConnection();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
+	public DBOperations() throws ClassNotFoundException, SQLException {
+		if (connection == null)
+			connection = SingletonDBConnect.getInstance().getDBConnection();
 	}
-	
+		
 	public void createTable() {
 		try {
 			st = connection.createStatement();
@@ -46,7 +43,18 @@ public class DBOperations {
 		}
 	}
 	
-	public static ArrayList<StudentModel> getAllStudents() {
+	public void updateStudent(String columnName, String condition, String newValue) {
+		try {
+			pst = connection.prepareStatement(DBSchema.updateStudent(columnName));
+            pst.setString(1, newValue);
+            pst.setInt(2, Integer.parseInt(condition));
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<StudentModel> getAllStudents() {
 		ArrayList<StudentModel> students = new ArrayList<>();
 		try {
 			pst = connection.prepareStatement(DBSchema.getQueryAllStudents());
@@ -61,7 +69,6 @@ public class DBOperations {
 				String grades = rs.getString(6);
 				students.add(new StudentModel(id, fullname, nationality, phone, email, grades));
 			}
-			DBConnect.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

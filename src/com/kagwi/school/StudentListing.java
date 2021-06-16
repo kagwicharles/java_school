@@ -1,7 +1,10 @@
 package com.kagwi.school;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -17,12 +20,10 @@ public class StudentListing extends JFrame {
 	private JTable studentTable;
 	private DefaultTableModel model;
     private String[] columnNames = {"ID", "FULL NAME", "NATIONALITY", "PHONE", "EMAIL", "GRADES"};
+    
+    private DBOperations dbOperations;
 
-
-	/**
-	 * Create the frame.
-	 */
-	public StudentListing() {
+	public StudentListing() throws ClassNotFoundException, SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 671, 427);
 		contentPane = new JPanel();
@@ -39,18 +40,48 @@ public class StudentListing extends JFrame {
 		model = new DefaultTableModel();
         model.setColumnIdentifiers(columnNames);
 		
+        dbOperations = new DBOperations();
+        
 		studentTable = new JTable();
+		studentTable.addKeyListener(new KeyAdapter() {
+	        @Override
+	        public void keyPressed(KeyEvent e) {
+	            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+	                int row = studentTable.getSelectedRow();
+	                int column = studentTable.getSelectedColumn();
+
+	                String result = studentTable.getValueAt(row, column).toString();
+	                String id = studentTable.getValueAt(row, 0).toString();
+	                update(id, result, column);
+	            }
+	        }
+	    });
+		
 		scrollPane.setViewportView(studentTable);
 		studentTable.setModel(model);
 		studentTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		studentTable.setFillsViewportHeight(true);
 		setTitle("Database results");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                System.out.println("Closed");
+                e.getWindow().dispose();
+            }
+        });
 	}
 	
-	 public ArrayList<StudentModel> showStudents() {
+	public void update(String id, String result, int column) {
+		System.out.println("Column "+column+" has been changed to "+result);
+		dbOperations.updateStudent(getColumnName(column), id, result);
+	}
+
+	public ArrayList<StudentModel> showStudents() {
 			ArrayList<StudentModel> studentList = new ArrayList<StudentModel>();
-			studentList = new DBOperations().getAllStudents();
+			studentList = dbOperations.getAllStudents();
 			
 	        int i = 0;
 	        while (i != studentList.size()) {
@@ -61,5 +92,24 @@ public class StudentListing extends JFrame {
 	        }
 	        return studentList;
 	 }
+	
+	public String getColumnName(int i) {
+		
+		switch (i) {
+			case 1:
+				return "fullname";
+			case 2:
+				return "nationality";
+			case 3:
+				return "phone";
+			case 4:
+				return "email";
+			case 5:
+				return "grades";
+			default:
+				return null;
+			
+		}
+	}
 
 }

@@ -6,19 +6,17 @@ import java.sql.SQLException;
 
 public class DBConnect {
 
-		private static Connection connection = null;
-		private static String host = "";
-		private static String db = "";
-		private static String user = ""; //Database user
-	    private static String password = ""; //Database pass
-		private static String url = ""; //Database url*/
-		private static String port;
+		private Connection connection = null;
+		private String host = "";
+		private String db = "";
+		private String user = ""; //Database user
+	    private String password = ""; //Database pass
+		private String url = ""; //Database url*/
+		private String port;
 	    
 		public DBConnect(String host, String db, String user, String pass, String port)
 		{
-		
-			/*Initialize variables to connect 
-			to database here*/
+	
 			this.host = host; //Domain name or Ip address of host site
 			this.db = db;	//Database name
 			this.user = user; //Database user
@@ -26,7 +24,7 @@ public class DBConnect {
 			this.port = port; //Port for database
 		}
 		
-		public static Connection getConnection() throws SQLException, ClassNotFoundException {
+		public Connection getConnection() throws SQLException, ClassNotFoundException {
 			Class.forName("org.postgresql.Driver");
 			url = "jdbc:postgresql://"+host+":"+port+"/"+db;
 			if (connection == null)
@@ -37,7 +35,7 @@ public class DBConnect {
 			return connection;
 		}
 		
-		public static void closeConnection() throws SQLException {
+		public void closeConnection() throws SQLException {
 			if (connection != null)
 				connection.close();
 		}

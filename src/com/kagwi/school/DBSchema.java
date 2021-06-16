@@ -16,6 +16,11 @@ public class DBSchema {
 		return query;
 	}
 
+	public static String updateStudent(String columnName) {
+		String query = "UPDATE students SET "+columnName+" = ? WHERE id = ?";
+		return query;
+	}
+	
 	public static String getQueryAllStudents() {
 		return QUERY_ALL_STUDENTS;
 	}
