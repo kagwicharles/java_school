@@ -41,8 +41,8 @@ public class StudentForm extends JFrame {
 	}
 
 	public StudentForm() throws ClassNotFoundException, SQLException {
-		
-		new DBOperations().createTable(); //Creates database table if does not exist
+
+		new DBOperations().createTable(); // Creates database table if does not exist
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 585, 466);
 		contentPane = new JPanel();
@@ -193,17 +193,17 @@ public class StudentForm extends JFrame {
 	}
 
 	public void registerStudent() throws ClassNotFoundException, SQLException {
-		
+
 		String name = fullname.getText().toString();
 		String nation = nationality.getText().toString();
 		String phoneNo = phone.getText().toString();
 		String e_mail = email.getText().toString();
 		new DBOperations().insertStudent(name, nation, phoneNo, e_mail, createJson());
-		
+
 	}
 
 	public String createJson() {
-		
+
 		JSONObject gradesObj = new JSONObject();
 		gradesObj.put("Mathematics", mathsGrade.getText().toString());
 		gradesObj.put("Kiswahili", kiswGrade.getText().toString());
